@@ -8,37 +8,60 @@
 </head>
 <body onload="populateStatementMonthSelect()">
 
-<div id="popup" style="
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-">
+<div id="popup" class="popup-overlay">
+  <div class="popup-box">
 
-  <div style="
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 400px;
-    text-align: center;
-  ">
-    <h2>How to use the Budgeting Dashboard</h2>
-    <p>
-      Input values on the dashboard are net-monthly for income and monthly for expenses (this is for the calculations).
-    <p>
-      Once all your values are correct, you can save it under "Scenarios".
-    <p>
-      When your inputs are correct, click run and the dashboard will show you the budgeting results- this can be changed to present yearly/monthly breakdowns.
-    </p>
+    <!-- Close button -->
+    <span class="close-btn" onclick="closePopup()">×</span>
 
-    <button onclick="closePopup()">Start using Budgeting Dashboard</button>
+    <!-- Slides -->
+    <div class="slide active">
+      <h2>Budgeting Dashboard 1.5 👋</h2>
+      <p>This app helps simplify you calculate and track your finances. Click next to see a step-by-step guide.</p>
+    </div>
+
+    <div class="slide">
+      <h2>Step 1</h2>
+      <p>Enter your net-monthly pay and any additional income.</p>
+    </div>
+
+    <div class="slide">
+      <h2>Step 2</h2>
+      <p>Enter any future income changes, increase or decrease, and any ad-hoc income for a specific month.</p>
+    </div>
+
+    <div class="slide">
+      <h2>Step 3</h2>
+      <p>Add your fixed (rent, car payments, etc..) and variable (loan repayments, subscriptions, etc..) costs.</p>
+    </div>
+
+    <div class="slide">
+      <h2>Step 4</h2>
+      <p>If you want to see projections for a specific month to include credit card statements, add them and select the statement month.</p>
+    </div>
+
+    <div class="slide">
+      <h2>Step 5</h2>
+      <p>If you want to save the dashboard inputs, give it a name and click "Save Scenario".</p>
+    </div>
+
+    <div class="slide">
+      <h2>Step 6 🎉</h2>
+      <p>Click run and see the calculations and projections, this can be adjusted for monthly/yearly outlook.</p>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button onclick="prevSlide()">Back</button>
+      <button onclick="nextSlide()">Next</button>
+    </div>
+
+    <!-- Checkbox -->
+    <label class="checkbox">
+      <input type="checkbox" id="dontShow"> Don’t show again
+    </label>
+
   </div>
-
 </div>
 
 <button id="darkModeToggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
@@ -55,6 +78,7 @@
     <!-- Income Section -->
     <section>
       <h2>Salary/Pay</h2>
+      <h4><em>Net / Monthly</em></h4>
       <div id="incomeList"></div>
       <button onclick="addIncome()">+ Add Income</button>
     </section>
@@ -62,6 +86,7 @@
     <!-- Future Income Section -->
     <section>
       <h2>Future Salary/Pay</h2>
+      <h4><em>Net / Monthly</em></h4>
       <div id="futureIncomeList"></div>
       <button onclick="addFutureIncome()">+ Add Future Income</button>
     </section>
@@ -69,6 +94,7 @@
     <!-- Ad-hoc Income Section -->
     <section>
       <h2>Ad-hoc Income</h2>
+      <h4><em>Net / Monthly</em></h4>
       <div id="adhocIncomeList"></div>
       <button onclick="addAdhocIncome()">+ Add Ad-hoc Income</button>
     </section>
@@ -76,6 +102,7 @@
     <!-- Fixed Expenses Section -->
     <section>
       <h2>Fixed Expenses</h2>
+      <h4><em>Monthly</em></h4>
       <div id="fixedList"></div>
       <button onclick="addFixed()">+ Add Fixed Expense</button>
     </section>
@@ -83,13 +110,15 @@
     <!-- Variable Expenses Section -->
     <section>
       <h2>Variable Expenses</h2>
+      <h4><em>Monthly</em></h4>
       <div id="variableList"></div>
       <button onclick="addVariable()">+ Add Variable Expense</button>
     </section>
 
     <!-- Credit Card Statement Balances Section -->
     <section>
-      <h2>Credit Card Balances</h2>
+      <h2>Credit Cards</h2>
+      <h4><em>EOM Statement Balance</em></h4>
       <div class="button-row">
         <label for="statementMonthSelect">Statement Month:</label>
         <select id="statementMonthSelect"></select>
@@ -123,7 +152,7 @@
   <div id="chartControlsTop">
     <button onclick="setChartView('monthly')">Monthly</button>
     <button onclick="setChartView('yearly')">Yearly</button>
-    <button onclick="showMenu()">← Back to Menu</button>
+    <button onclick="showMenu()">← Return</button>
   </div>
 
   <!-- Cards -->

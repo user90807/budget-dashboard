@@ -1,22 +1,183 @@
-/* -------------------- Global -------------------- */
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f9;
-  margin: 0;
-  color: #333;
+/* =========================================================
+   NOTION-STYLE BROWN FINANCE UI — FINAL VERSION
+   ========================================================= */
+
+/* -------------------- THEME SYSTEM -------------------- */
+:root {
+  --bg: #e7d6bb;
+  --text: #3b2416;
+
+  --container: rgba(90, 55, 30, 0.22);
+  --container-strong: rgba(90, 55, 30, 0.32);
+
+  --border: rgba(43, 22, 12, 0.65);
+
+  --button-bg: #f5f1e8;
+  --button-text: #3b2416;
+
+  --shadow: 0 10px 25px rgba(0,0,0,0.12);
+  --hover-shadow: 0 18px 40px rgba(0,0,0,0.18);
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
 }
 
+/* -------------------- GLOBAL -------------------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* subtle paper texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 18px 18px;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+/* -------------------- ANIMATIONS -------------------- */
+button,
+section,
+.card,
+#budgetChart,
+#breakdownContainer {
+  transition: all 0.25s ease;
+}
+
+/* -------------------- BUTTONS -------------------- */
 button {
   cursor: pointer;
-  transition: all 0.3s ease;
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* -------------------- Header -------------------- */
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--hover-shadow);
+  background: #eee7db;
+}
+
+/* -------------------- POPUP -------------------- */
+/* =========================================================
+   POPUP (FIXED SLIDE SYSTEM - COMPATIBLE WITH YOUR JS)
+   ========================================================= */
+
+/* overlay stays simple + safe */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(6px);
+}
+
+/* popup container */
+.popup-box {
+  background: var(--container-strong);
+  padding: 25px;
+  border-radius: var(--radius-lg);
+  width: 90%;
+  max-width: 420px;
+
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+
+  color: #1f120b;
+
+  position: relative;
+
+  /* IMPORTANT: DO NOT use flex/grid here */
+  display: block;
+}
+
+/* =========================================================
+   SLIDES (THIS IS THE CRITICAL FIX)
+   ========================================================= */
+
+.slide {
+  display: none !important;   /* ensures nothing overrides JS */
+  min-height: 120px;
+}
+
+.slide.active {
+  display: block !important;
+}
+
+/* optional smooth fade ONLY (no layout impact) */
+.slide.active {
+  animation: slideFade 0.18s ease;
+}
+
+@keyframes slideFade {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+/* =========================================================
+   POPUP CONTENT STYLING (SAFE)
+   ========================================================= */
+
+.popup-box h2 {
+  margin-top: 0;
+  color: #1a0f09;
+}
+
+.popup-box p {
+  color: #2a1710;
+  line-height: 1.4;
+}
+
+/* close button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* controls */
+.controls {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.controls button {
+  flex: 1;
+}
+
+/* checkbox */
+.checkbox {
+  display: block;
+  margin-top: 12px;
+  font-size: 14px;
+  color: #2a1710;
+}
+/* -------------------- HEADER -------------------- */
 #dashboardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 30px 20px;
+  margin: 28px 22px;
 }
 
 #dashboardHeader h1 {
@@ -24,67 +185,40 @@ button {
   margin: 0;
 }
 
-#calculateBtn {
-  font-size: 20px;
-  padding: 14px 28px;
-  background-color: #28a745;
-  color: white;
-  border-radius: 8px;
-  border: none;
-}
-
-#calculateBtn:hover {
-  background-color: #1e7e34;
-}
-
-/* -------------------- Sections -------------------- */
+/* -------------------- SECTIONS -------------------- */
 section {
-  background: rgba(255,255,255,0.85);
-  border: 1px solid #000;
-  border-radius: 12px;
+  background: var(--container);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   padding: 20px;
   margin: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
 }
 
 section:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: var(--hover-shadow);
 }
 
-section button {
-  margin-top: 10px;
-  padding: 8px 14px;
-  border-radius: 6px;
-  border: none;
-  background-color: #007aff;
-  color: #fff;
-}
-
-section button:hover {
-  background-color: #005bb5;
-}
-
-.button-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-/* -------------------- Inputs -------------------- */
+/* -------------------- INPUTS -------------------- */
 .item {
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
 }
 
-.item input, .item select {
-  padding: 6px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.item input,
+.item select {
+  padding: 9px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.65);
+  color: var(--text);
 }
 
-/* -------------------- RESULTS LAYOUT -------------------- */
+/* -------------------- RESULTS -------------------- */
 #resultsContainer {
   padding: 20px;
   display: grid;
@@ -104,36 +238,66 @@ section button:hover {
   gap: 20px;
 }
 
+.card {
+  padding: 18px;
+  border-radius: var(--radius-lg);
+  background: var(--container);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
+  text-align: center;
+  color: var(--text);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--hover-shadow);
+}
+
 /* -------------------- TIMELINE -------------------- */
 #timelineContainer {
   grid-area: timeline;
   overflow-y: auto;
 }
 
+.timeline-item {
+  padding-left: 20px;
+  border-left: 3px solid var(--border);
+  margin-bottom: 10px;
+}
+
 /* -------------------- CHART -------------------- */
-/* Back button below the top-right buttons */
-#backButton {
-  display: flex;
-  gap: 10px;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
+#budgetChart {
+  grid-area: chart;
+  width: 100% !important;
+  max-width: 1500px;
+  margin: 0 auto;
+
+  background: var(--container);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 15px;
+
+  backdrop-filter: blur(14px);
 }
 
-#backButton button {
-  background: #007aff;
-  color: white;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 6px;
+/* -------------------- BREAKDOWN -------------------- */
+#breakdownContainer {
+  grid-area: breakdown;
+  width: 100% !important;
+  max-width: 1500px;
+  margin: 0 auto;
+
+  background: var(--container);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 15px;
+
+  backdrop-filter: blur(14px);
 }
 
-#backButton:hover {
-  background: #005bb5;
-}
-
-/* Top-right monthly/yearly buttons */
+/* -------------------- TOP CONTROLS -------------------- */
+#backButton,
 #chartControlsTop {
   display: flex;
   gap: 10px;
@@ -143,65 +307,67 @@ section button:hover {
   z-index: 1000;
 }
 
+/* -------------------- FIX B: ONLY MENU BUTTONS BIGGER -------------------- */
+/* return, run, yearly, monthly buttons */
+#backButton button,
 #chartControlsTop button {
-  background: #007aff;
-  color: white;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 6px;
+  font-size: 16.5px;   /* slightly larger */
+  padding: 11px 16px;  /* slightly bigger click area */
 }
 
-#chartControlsTop button:hover {
-  background: #005bb5;
+/* keep other buttons unchanged size */
+button {
+  font-size: 14px;
 }
 
-#budgetChart {
-  grid-area: chart;
-  width: 100% !important;
-  max-width: 1500px;
-  margin: 0 auto;
-  display: block;
-  background: white;
-  border-radius: 12px;
-  padding: 15px;
-}
-
-/* -------------------- BREAKDOWN -------------------- */
-#breakdownContainer {
-  grid-area: breakdown;
-  width: 100% !important;
-  max-width: 1500px;
-  margin: 0 auto;
-  border-radius: 12px;
-  padding: 15px;
-}
-
-/* -------------------- CARDS STYLE -------------------- */
-.card {
-  padding: 18px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.95);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  text-align: center;
-}
-
-.card.income { border-left: 6px solid #28a745; }
-.card.expense { border-left: 6px solid #ff9500; }
-.card.remaining { border-left: 6px solid #6f42c1; }
-
-/* -------------------- TIMELINE STYLE -------------------- */
-.timeline-item {
-  padding-left: 20px;
-  border-left: 3px solid #ddd;
-  margin-bottom: 10px;
+/* -------------------- POPUP CONTROLS -------------------- */
+.controls {
+  margin-top: 15px;
 }
 
 /* -------------------- DARK MODE -------------------- */
 body.dark-mode {
-  background: #121212;
+  --bg: #3a2618;
+  --text: #f3e7d6;
+
+  --container: rgba(255,255,255,0.08);
+  --container-strong: rgba(255,255,255,0.12);
+
+  --border: rgba(255,255,255,0.18);
+
+  --button-bg: #e9dcc9;
+  --button-text: #3a2618;
+
+  --shadow: 0 12px 30px rgba(0,0,0,0.35);
+  --hover-shadow: 0 18px 45px rgba(0,0,0,0.45);
 }
 
-body.dark-mode .card,
-body.dark-mode #budgetChart {
-  background: #1e1e1e;
+/* -------------------- RESPONSIVE -------------------- */
+@media (max-width: 900px) {
+  #resultsContainer {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "cards"
+      "timeline"
+      "chart"
+      "breakdown";
+  }
+
+  #output {
+    grid-template-columns: 1fr;
+  }
+
+  #dashboardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* -------------------- RUN (CALCULATE) BUTTON ENHANCEMENT -------------------- */
+#calculateBtn {
+  font-size: 20px;
+  padding: 14px 32px;
+  font-weight: 500;
+  border-radius: var(--radius-md);
 }

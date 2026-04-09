@@ -8,21 +8,44 @@ function addDeleteButton(div) {
   div.appendChild(btn);
 }
 
-function closePopup() {
-  document.getElementById("popup").style.display = "none";
+let currentSlide = 0;
+const slides = document.querySelectorAll(".slide");
+
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.classList.toggle("active", i === index);
+  });
 }
 
-function animateValue(element, start, end, duration = 600) {
-  let startTime = null;
-  function animation(currentTime) {
-    if (!startTime) startTime = currentTime;
-    const progress = Math.min((currentTime - startTime) / duration, 1);
-    const value = start + (end - start) * progress;
-    element.textContent = "£" + value.toFixed(2);
-    if (progress < 1) requestAnimationFrame(animation);
+function nextSlide() {
+  if (currentSlide < slides.length - 1) {
+    currentSlide++;
+    showSlide(currentSlide);
+  } else {
+    closePopup();
   }
-  requestAnimationFrame(animation);
 }
+
+function prevSlide() {
+  if (currentSlide > 0) {
+    currentSlide--;
+    showSlide(currentSlide);
+  }
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+  if (document.getElementById("dontShow").checked) {
+    localStorage.setItem("hidePopup", "true");
+  }
+}
+
+window.onload = function () {
+  if (localStorage.getItem("hidePopup")) {
+    document.getElementById("popup").style.display = "none";
+  }
+  showSlide(currentSlide);
+};
 
 let chartView = "monthly";
 let projectionChart;
@@ -253,8 +276,8 @@ function renderResults(net, fixed, variable, now, future) {
   document.getElementById("output").innerHTML = `
     <div class="card income"><h3>Income</h3><p>£${net.toFixed(2)}</p></div>
     <div class="card expense"><h3>Expenses</h3><p>£${fixed.toFixed(2)}</p></div>
-    <div class="card remaining"><h3>Remaining</h3><p>£${now.toFixed(2)}</p></div>
-    <div class="card remaining"><h3>Remaining After Variables</h3><p>£${future.toFixed(2)}</p></div>
+    <div class="card remaining"><h3>Remaining Now </h3><p>£${now.toFixed(2)}</p></div>
+    <div class="card remaining"><h3>Remaining After</h3><p>£${future.toFixed(2)}</p></div>
   `;
 }
 
