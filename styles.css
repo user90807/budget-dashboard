@@ -84,177 +84,116 @@ section button:hover {
   border: 1px solid #ccc;
 }
 
-/* -------------------- RESULTS DASHBOARD -------------------- */
+/* -------------------- RESULTS LAYOUT -------------------- */
 #resultsContainer {
   padding: 20px;
-}
-
-/* GRID LAYOUT */
-#resultsGrid {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-/* LEFT SIDE */
-#resultsLeft {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas:
+    "cards timeline"
+    "chart chart"
+    "breakdown breakdown";
   gap: 20px;
-}
-
-/* RIGHT SIDE (chart) */
-#resultsRight {
-  position: sticky;
-  top: 80px;
 }
 
 /* -------------------- CARDS -------------------- */
 #output {
+  grid-area: cards;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
+/* -------------------- TIMELINE -------------------- */
+#timelineContainer {
+  grid-area: timeline;
+  overflow-y: auto;
+}
+
+/* -------------------- CHART -------------------- */
+/* Back button below the top-right buttons */
+#backButton {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#backButton button {
+  background: #007aff;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+}
+
+#backButton:hover {
+  background: #005bb5;
+}
+
+/* Top-right monthly/yearly buttons */
+#chartControlsTop {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#chartControlsTop button {
+  background: #007aff;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+}
+
+#chartControlsTop button:hover {
+  background: #005bb5;
+}
+
+#budgetChart {
+  grid-area: chart;
+  width: 100% !important;
+  max-width: 1500px;
+  margin: 0 auto;
+  display: block;
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+}
+
+/* -------------------- BREAKDOWN -------------------- */
+#breakdownContainer {
+  grid-area: breakdown;
+  width: 100% !important;
+  max-width: 1500px;
+  margin: 0 auto;
+  border-radius: 12px;
+  padding: 15px;
+}
+
+/* -------------------- CARDS STYLE -------------------- */
 .card {
   padding: 18px;
   border-radius: 12px;
   background: rgba(255,255,255,0.95);
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   text-align: center;
-  transition: 0.2s;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-}
+.card.income { border-left: 6px solid #28a745; }
+.card.expense { border-left: 6px solid #ff9500; }
+.card.remaining { border-left: 6px solid #6f42c1; }
 
-/* COLOR CODING */
-.card.income {
-  border-left: 6px solid #28a745;
-}
-
-.card.expense {
-  border-left: 6px solid #ff9500;
-}
-
-.card.credit {
-  border-left: 6px solid #007aff;
-}
-
-.card.remaining {
-  border-left: 6px solid #6f42c1;
-}
-
-/* -------------------- TIMELINE -------------------- */
-#timelineContainer {
-  max-width: 1500px;
-  margin: 0 auto 30px auto;
-}
-
+/* -------------------- TIMELINE STYLE -------------------- */
 .timeline-item {
-  position: relative;
   padding-left: 20px;
-  margin-bottom: 15px;
   border-left: 3px solid #ddd;
-}
-
-.timeline-item::before {
-  content: "";
-  position: absolute;
-  left: -7px;
-  top: 5px;
-  width: 12px;
-  height: 12px;
-  background: #007aff;
-  border-radius: 50%;
-}
-
-/* income / expense colors */
-.timeline-income {
-  border-left-color: #28a745;
-}
-
-.timeline-income::before {
-  background: #28a745;
-}
-
-.timeline-variable {
-  border-left-color: #ff9500;
-}
-
-.timeline-variable::before {
-  background: #ff9500;
-}
-
-/* Timeline full width */
-#output > div {
-  grid-column: 1 / -1;
-}
-
-/* -------------------- CHART -------------------- */
-#budgetChart {
-  width: 100% !important;
-  max-width: 1200px;
-  margin: 0 auto 30px;
-  display: block;
-  background: white;
-  border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-}
-
-#chartControls {
-  text-align: center;
-  margin: 20px 0;
-}
-
-#chartControls button {
-  margin: 0 10px;
-  padding: 8px 16px;
-  border-radius: 6px;
-  border: none;
-  background: #007aff;
-  color: white;
-}
-
-#chartControls button:hover {
-  background: #005bb5;
-}
-
-#budgetChart {
-  width: 100% !important;
-  max-width: 1000px;
-  margin: 0 auto 30px auto;
-  display: block;
-}
-
-/* -------------------- BREAKDOWN -------------------- */
-#breakdownContainer {
-  width: 100% !important;
-  max-width: 1000px;
-  margin: 0 auto 15px;
-  border-radius: 8px;
-  padding: 10px;
-  display: block;
-}
-
-#breakdownContainer .card {
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto 15px;
-}
-
-/* -------------------- BACK BUTTON -------------------- */
-#backButton {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #007aff;
-  color: white;
-  border-radius: 6px;
-  padding: 10px;
-  border: none;
+  margin-bottom: 10px;
 }
 
 /* -------------------- DARK MODE -------------------- */
@@ -263,7 +202,6 @@ body.dark-mode {
 }
 
 body.dark-mode .card,
-body.dark-mode #budgetChart,
-body.dark-mode #breakdownContainer {
+body.dark-mode #budgetChart {
   background: #1e1e1e;
 }

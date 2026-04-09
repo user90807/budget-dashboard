@@ -16,7 +16,7 @@
     <!-- Dashboard Header -->
     <div id="dashboardHeader">
       <h1>Budgeting Dashboard</h1>
-      <button id="calculateBtn" onclick="calculate(); showResults();">Run</button>
+      <button id="calculateBtn" onclick="calculate();">Run</button>
     </div>
 
     <!-- Income Section -->
@@ -85,24 +85,24 @@
 
   <!-- -------------------- Results Page -------------------- -->
   <div id="resultsContainer" style="display:none;">
-  <button id="backButton" onclick="showMenu()">← Back to Menu</button>
+
+  <!-- Chart Controls (Top Right) -->
+  <div id="chartControlsTop">
+    <button onclick="setChartView('monthly')">Monthly</button>
+    <button onclick="setChartView('yearly')">Yearly</button>
+    <button onclick="showMenu()">← Back to Menu</button>
+  </div>
 
   <!-- Cards -->
   <div id="output"></div>
 
-  <!-- Chart Controls -->
-  <div id="chartControls">
-    <button onclick="setChartView('monthly')">Monthly</button>
-    <button onclick="setChartView('yearly')">Yearly</button>
-  </div>
+  <!-- Timeline -->
+  <div id="timelineContainer"></div> 
 
   <!-- Chart -->
   <canvas id="budgetChart"></canvas>
 
-  <!-- Timeline -->
-  <div id="timelineContainer"></div>
-
-  <!-- Breakdown (NOW ALWAYS LAST) -->
+  <!-- Breakdown -->
   <div id="breakdownContainer"></div>
 </div>
 
