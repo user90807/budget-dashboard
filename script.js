@@ -8,6 +8,10 @@ function addDeleteButton(div) {
   div.appendChild(btn);
 }
 
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
 function animateValue(element, start, end, duration = 600) {
   let startTime = null;
   function animation(currentTime) {

@@ -8,6 +8,39 @@
 </head>
 <body onload="populateStatementMonthSelect()">
 
+<div id="popup" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+">
+
+  <div style="
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    text-align: center;
+  ">
+    <h2>How to use the Budgeting Dashboard</h2>
+    <p>
+      Input values on the dashboard are net-monthly for income and monthly for pay (this is for the calculations).
+    </p>
+      Once all your values are correct, you can save it under "Scenarios".
+    </p>
+      When your inputs are correct, click run and the dashboard will show you the budgeting results- this can be changed to present yearly/monthly breakdowns.
+    </p>
+
+    <button onclick="closePopup()">Start using Budgeting Dashboard</button>
+  </div>
+
+</div>
+
 <button id="darkModeToggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
   <!-- -------------------- Dashboard Page -------------------- -->
