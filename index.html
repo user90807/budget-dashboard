@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budgeting Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="populateStatementMonthSelect()">
+
+<button id="darkModeToggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+  <!-- -------------------- Dashboard Page -------------------- -->
+  <div id="menuContainer">
+
+    <!-- Dashboard Header -->
+    <div id="dashboardHeader">
+      <h1>Budgeting Dashboard</h1>
+      <button id="calculateBtn" onclick="calculate(); showResults();">Run</button>
+    </div>
+
+    <!-- Income Section -->
+    <section>
+      <h2>Salary/Pay</h2>
+      <div id="incomeList"></div>
+      <button onclick="addIncome()">+ Add Income</button>
+    </section>
+
+    <!-- Future Income Section -->
+    <section>
+      <h2>Future Salary/Pay</h2>
+      <div id="futureIncomeList"></div>
+      <button onclick="addFutureIncome()">+ Add Future Income</button>
+    </section>
+
+    <!-- Ad-hoc Income Section -->
+    <section>
+      <h2>Ad-hoc Income</h2>
+      <div id="adhocIncomeList"></div>
+      <button onclick="addAdhocIncome()">+ Add Ad-hoc Income</button>
+    </section>
+
+    <!-- Fixed Expenses Section -->
+    <section>
+      <h2>Fixed Expenses</h2>
+      <div id="fixedList"></div>
+      <button onclick="addFixed()">+ Add Fixed Expense</button>
+    </section>
+
+    <!-- Variable Expenses Section -->
+    <section>
+      <h2>Variable Expenses</h2>
+      <div id="variableList"></div>
+      <button onclick="addVariable()">+ Add Variable Expense</button>
+    </section>
+
+    <!-- Credit Card Statement Balances Section -->
+    <section>
+      <h2>Credit Card Balances</h2>
+      <div class="button-row">
+        <label for="statementMonthSelect">Statement Month:</label>
+        <select id="statementMonthSelect"></select>
+      </div>
+      <div id="creditCardList"></div>
+      <button onclick="addCreditCard()">+ Add Credit Card</button>
+    </section>
+
+    <!-- Scenarios Section -->
+    <section>
+      <h2>Saved Scenarios</h2>
+
+      <div class="button-row">
+        <input id="scenarioName" placeholder="Scenario Name">
+        <button onclick="saveScenario()">Save Scenario</button>
+      </div>
+
+      <div class="button-row">
+        <select id="scenarioSelect"></select>
+        <button onclick="loadScenario()">Load Scenario</button>
+        <button onclick="deleteScenario()">Delete Scenario</button>
+      </div>
+    </section>
+
+  </div> <!-- END menuContainer -->
+
+  <!-- -------------------- Results Page -------------------- -->
+  <div id="resultsContainer" style="display:none;">
+  <button id="backButton" onclick="showMenu()">← Back to Menu</button>
+
+  <!-- Cards -->
+  <div id="output"></div>
+
+  <!-- Chart Controls -->
+  <div id="chartControls">
+    <button onclick="setChartView('monthly')">Monthly</button>
+    <button onclick="setChartView('yearly')">Yearly</button>
+  </div>
+
+  <!-- Chart -->
+  <canvas id="budgetChart"></canvas>
+
+  <!-- Timeline -->
+  <div id="timelineContainer"></div>
+
+  <!-- Breakdown (NOW ALWAYS LAST) -->
+  <div id="breakdownContainer"></div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
